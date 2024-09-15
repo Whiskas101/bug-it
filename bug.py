@@ -1,10 +1,9 @@
 
-
 # I could have watched 4 episodes of anime instead of doing this 😭
 
 import random
 import re
-
+import pyperclip
 
 def swap_operators(line):
     # this one is pure evil, vscode or the compiler wont detect it.
@@ -24,7 +23,7 @@ def swap_operators(line):
     print("____________________________")
     for operator, replacement in swap_map.items():
         RNG = random.random() 
-        if operator in line and RNG < 0.5:
+        if operator in line and RNG < 0.8:
             line = line.replace(operator, replacement, 1)
             
     return line
@@ -124,17 +123,36 @@ int main ()
 """
 
 
-for line in input_file.split('\n'):
-    line = swap_operators(line)
-    
-    line = add_off_by_one_error(line)
-    line = change_data_type(line)
-    line = mess_up_order_of_operations(line)
-    line = change_semicolons(line)
-    
-    print(line)
-    
 
+def main():
+    
+    def get_multiline_input():
+        
+        lines = []
+        while True:
+            line = input()
+            if not line:
+                break
+            lines.append(line)
+        return '\n'.join(lines) 
+    
+    input_file = pyperclip.paste()
+        
+    for line in input_file.split('\n'):
+        line = swap_operators(line)
+        
+        line = add_off_by_one_error(line)
+        line = change_data_type(line)
+        line = mess_up_order_of_operations(line)
+        line = change_semicolons(line)
+        
+        print(line)
+    
+    
+if __name__ == "__main__":
+    
+    main()
+    
     
 
     
