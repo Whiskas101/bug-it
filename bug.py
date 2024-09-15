@@ -21,7 +21,7 @@ def swap_operators(line):
         "&&" : "&",
     }
     
-    print("____________________________")
+    # print("____________________________")
     for operator, replacement in swap_map.items():
         RNG = random.random() 
         if operator in line and RNG < 0.8:
@@ -35,7 +35,7 @@ def add_off_by_one_error(line):
     
     match = re.search(r'(for|while)\s*\(([^)]+)\)', line)
     if match:
-        print("Match")
+        # print("Match")
         # print("Old: ", line)
         RNG = random.random()
         condition = match.group(2)
@@ -53,7 +53,7 @@ def change_data_type(line):
     data_types = ['int', 'float', 'double', 'char', 'long', 'short', 'unsigned']
     
     def choose_alternate_type(current_type, data_types):
-        print("choosing")
+        # print("choosing")
         index = data_types.index(current_type)
             
         # making sure new index is not the same as old index by modular arithemetic     
@@ -127,18 +127,10 @@ int main ()
 
 def main():
     
-    def get_multiline_input():
-        
-        lines = []
-        while True:
-            line = input()
-            if not line:
-                break
-            lines.append(line)
-        return '\n'.join(lines) 
     
     input_file = pyperclip.paste()
-        
+    print("Input file: ", input_file)
+    res = "" 
     for line in input_file.split('\n'):
         line = swap_operators(line)
         
@@ -147,8 +139,11 @@ def main():
         line = mess_up_order_of_operations(line)
         line = change_semicolons(line)
         
-        print(line)
+       
+        res = res + "\n"+line
     
+    print("____________________________________\nOutput File: ", res)
+    pyperclip.copy(res)
     
 if __name__ == "__main__":
     
